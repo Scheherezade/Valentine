@@ -20,6 +20,20 @@ body {
   align-items: center;
   overflow: hidden;
   text-align: center;
+  transition: transform 0.2s;
+}
+
+/* Shake animation */
+.shake {
+  animation: shake 0.4s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(2px, 2px); }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); }
+  75% { transform: translate(-2px, -2px); }
+  100% { transform: translate(2px, 2px); }
 }
 
 /* Card */
@@ -31,7 +45,7 @@ body {
   width: 90%;
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 h1 {
@@ -59,30 +73,33 @@ button:hover {
   background: #ff3355;
 }
 
-/* Hidden Section */
+/* Hidden content */
 .hidden-content {
   display: none;
   margin-top: 20px;
+  position: relative;
 }
 
 .hidden-content img {
-  width: 100%;
+  width: 55%;   /* smaller size */
   border-radius: 15px;
   margin-top: 10px;
 }
 
 .countdown {
-  font-size: 22px;
+  font-size: 40px;
+  font-weight: bold;
   color: #ff4d6d;
   margin-top: 10px;
 }
 
-/* Explosion Flowers */
+/* Explosion flowers */
 .explosion {
   position: fixed;
-  font-size: 24px;
+  font-size: 26px;
   pointer-events: none;
   animation: explode 1s ease-out forwards;
+  z-index: 9999; /* ensure front */
 }
 
 @keyframes explode {
@@ -91,19 +108,39 @@ button:hover {
     opacity: 1;
   }
   to {
-    transform: translate(var(--x), var(--y)) scale(1.8);
+    transform: translate(var(--x), var(--y)) scale(2);
     opacity: 0;
   }
 }
 
-/* GIF after explosion */
-.gif {
+/* GIF styling */
+.gif-container {
   display: none;
+  position: relative;
   margin-top: 15px;
-  border-radius: 15px;
-  width: 100%;
 }
 
+.gif-container img {
+  width: 55%;
+  border-radius: 15px;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: -10px;
+  right: 30%;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 </head>
 <body>
@@ -112,17 +149,19 @@ button:hover {
   <h1>Happy Valentine’s 💖</h1>
   <p>
     I made this just for you 🌸  
-    It’s simple… but so is my plan —  
-    to make you smile today 😌
+    Let’s see something magical happen 😌
   </p>
 
   <button onclick="startSurprise()">Click for Surprise 💐</button>
 
   <div class="hidden-content" id="hiddenContent">
-    <img src="picture.jfif" alt="Special Memory">
-    <div class="countdown" id="countdown">3</div>
-    <img class="gif" id="flowerGif"
-      src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHk0ZTY5ajA4bTV3ZXp4eHR0OGF2YW9na2dvNWJqamZxODhpYnZ4MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pBtoGtaFc6DnHEeacf/giphy.gif">
+    <img id="mainImage" src="picture.jfif" alt="Memory">
+    <div class="countdown" id="countdown"></div>
+
+    <div class="gif-container" id="gifContainer">
+      <div class="close-btn" onclick="resetSurprise()">✕</div>
+      <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHk0ZTY5ajA4bTV3ZXp4eHR0OGF2YW9na2dvNWJqamZxODhpYnZ4MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pBtoGtaFc6DnHEeacf/giphy.gif">
+    </div>
   </div>
 </div>
 
@@ -130,9 +169,12 @@ button:hover {
 function startSurprise() {
   const content = document.getElementById("hiddenContent");
   const countdownEl = document.getElementById("countdown");
-  const gif = document.getElementById("flowerGif");
+  const body = document.body;
+  const mainImage = document.getElementById("mainImage");
 
   content.style.display = "block";
+  mainImage.style.display = "block";
+  document.getElementById("gifContainer").style.display = "none";
 
   let count = 3;
   countdownEl.innerText = count;
@@ -144,10 +186,16 @@ function startSurprise() {
     if (count <= 0) {
       clearInterval(timer);
       countdownEl.innerText = "💥";
-      explodeFlowers();
+
+      body.classList.add("shake");
+
       setTimeout(() => {
-        gif.style.display = "block";
-      }, 800);
+        body.classList.remove("shake");
+        explodeFlowers();
+        mainImage.style.display = "none";
+        countdownEl.innerText = "";
+        document.getElementById("gifContainer").style.display = "block";
+      }, 600);
     }
   }, 1000);
 }
@@ -157,13 +205,13 @@ function explodeFlowers() {
   const centerX = window.innerWidth / 2;
   const centerY = window.innerHeight / 2;
 
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 35; i++) {
     const flower = document.createElement("div");
     flower.classList.add("explosion");
     flower.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
 
     const angle = Math.random() * 2 * Math.PI;
-    const distance = Math.random() * 200 + 50;
+    const distance = Math.random() * 250 + 50;
 
     const x = Math.cos(angle) * distance + "px";
     const y = Math.sin(angle) * distance + "px";
@@ -174,9 +222,12 @@ function explodeFlowers() {
     flower.style.setProperty("--y", y);
 
     document.body.appendChild(flower);
-
     setTimeout(() => flower.remove(), 1000);
   }
+}
+
+function resetSurprise() {
+  document.getElementById("hiddenContent").style.display = "none";
 }
 </script>
 
