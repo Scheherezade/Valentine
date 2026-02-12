@@ -1,194 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Valentine’s 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Happy Valentine’s 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
-    body {
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffeef3, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+}
 
-    /* 🎥 Background Video */
-    .video-bg {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 120vw;
-      height: 120vh;
-      transform: translate(-50%, -50%);
-      z-index: -3;
-      pointer-events: none;
-    }
+/* Card */
+.card {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 25px;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 2;
+}
 
-    iframe {
-      width: 100%;
-      height: 100%;
-    }
+h1 {
+  color: #ff4d6d;
+}
 
-    /* Dark overlay */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: -2;
-    }
+p {
+  color: #444;
+  font-size: 15px;
+}
 
-    /* Main container */
-    .container {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
+button {
+  margin-top: 15px;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.2s;
+}
 
-    /* Card */
-    .card {
-      background: rgba(255, 255, 255, 0.94);
-      padding: 30px 25px;
-      border-radius: 24px;
-      max-width: 360px;
-      width: 100%;
-      box-shadow: 0 18px 35px rgba(0,0,0,0.25);
-      animation: fadeIn 1.3s ease;
-    }
+button:hover {
+  transform: scale(1.05);
+  background: #ff3355;
+}
 
-    h1 {
-      color: #ff4d6d;
-      margin-bottom: 10px;
-    }
+/* Hidden Section */
+.hidden-content {
+  display: none;
+  margin-top: 20px;
+}
 
-    .flowers-row {
-      font-size: 22px;
-      margin: 10px 0 15px;
-    }
+.hidden-content img {
+  width: 100%;
+  border-radius: 15px;
+  margin-top: 10px;
+}
 
-    p {
-      color: #444;
-      font-size: 15px;
-      margin-bottom: 20px;
-    }
+.countdown {
+  font-size: 22px;
+  color: #ff4d6d;
+  margin-top: 10px;
+}
 
-    button {
-      background: #ff4d6d;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 25px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
+/* Explosion Flowers */
+.explosion {
+  position: fixed;
+  font-size: 24px;
+  pointer-events: none;
+  animation: explode 1s ease-out forwards;
+}
 
-    button:hover {
-      background: #ff3355;
-      transform: scale(1.05);
-    }
+@keyframes explode {
+  from {
+    transform: translate(0,0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--x), var(--y)) scale(1.8);
+    opacity: 0;
+  }
+}
 
-    .surprise {
-      display: none;
-      margin-top: 20px;
-      font-size: 14px;
-      color: #333;
-      animation: fadeIn 1s ease;
-    }
+/* GIF after explosion */
+.gif {
+  display: none;
+  margin-top: 15px;
+  border-radius: 15px;
+  width: 100%;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* 🌸 Floating flowers */
-    .flower {
-      position: absolute;
-      bottom: -30px;
-      font-size: 22px;
-      opacity: 0.75;
-      animation: floatUp 10s linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.7;
-      }
-      100% {
-        transform: translateY(-120vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
 
-  <!-- 🎥 Background Video -->
-  <div class="video-bg">
-    <iframe
-      src="https://www.youtube.com/watch?v=OkFDwMgpWCE&list=PLfP6i5T0-DkImSa4jTf2RsWKkbEgS7ugB&index=25"
-      frameborder="0"
-      allow="autoplay; fullscreen">
-    </iframe>
+<div class="card">
+  <h1>Happy Valentine’s 💖</h1>
+  <p>
+    I made this just for you 🌸  
+    It’s simple… but so is my plan —  
+    to make you smile today 😌
+  </p>
+
+  <button onclick="startSurprise()">Click for Surprise 💐</button>
+
+  <div class="hidden-content" id="hiddenContent">
+    <img src="picture.jpg" alt="Special Memory">
+    <div class="countdown" id="countdown">3</div>
+    <img class="gif" id="flowerGif"
+      src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHk0ZTY5ajA4bTV3ZXp4eHR0OGF2YW9na2dvNWJqamZxODhpYnZ4MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pBtoGtaFc6DnHEeacf/giphy.gif">
   </div>
+</div>
 
-  <div class="overlay"></div>
+<script>
+function startSurprise() {
+  const content = document.getElementById("hiddenContent");
+  const countdownEl = document.getElementById("countdown");
+  const gif = document.getElementById("flowerGif");
 
-  <!-- 💖 Content -->
-  <div class="container">
-    <div class="card">
-      <h1>Happy Valentine’s Carr💖</h1>
+  content.style.display = "block";
 
-      <div class="flowers-row">🌸 🌷 🌹 🌼 🌺</div>
+  let count = 3;
+  countdownEl.innerText = count;
 
-      <p>
-        These flowers are for you because you deserve something
-        soft, warm, and a little extra just like this page 😌✨
-        kini lang sa kay di pa kahatag ug flowers sa personal I hope
-        you understand po
-      </p>
+  const timer = setInterval(() => {
+    count--;
+    countdownEl.innerText = count;
 
-      <button onclick="showSurprise()">Tap for a surprise 💐</button>
-
-      <div class="surprise" id="surprise">
-        💝 Surprise! 💝<br><br>
-        If I could give you flowers every day, I would.<br>
-        For now, please accept this moment po,<br>
-        <br>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function showSurprise() {
-      document.getElementById("surprise").style.display = "block";
+    if (count <= 0) {
+      clearInterval(timer);
+      countdownEl.innerText = "💥";
+      explodeFlowers();
+      setTimeout(() => {
+        gif.style.display = "block";
+      }, 800);
     }
+  }, 1000);
+}
 
-    function createFlower() {
-      const flowers = ["🌸","🌷","🌹","🌼","🌺"];
-      const flower = document.createElement("div");
-      flower.classList.add("flower");
-      flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
-      flower.style.left = Math.random() * 100 + "vw";
-      flower.style.animationDuration = (8 + Math.random() * 5) + "s";
-      document.body.appendChild(flower);
+function explodeFlowers() {
+  const flowers = ["🌸","🌷","🌹","🌼","🌺"];
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
 
-      setTimeout(() => flower.remove(), 12000);
-    }
+  for (let i = 0; i < 30; i++) {
+    const flower = document.createElement("div");
+    flower.classList.add("explosion");
+    flower.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
 
-    setInterval(createFlower, 900);
-  </script>
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = Math.random() * 200 + 50;
+
+    const x = Math.cos(angle) * distance + "px";
+    const y = Math.sin(angle) * distance + "px";
+
+    flower.style.left = centerX + "px";
+    flower.style.top = centerY + "px";
+    flower.style.setProperty("--x", x);
+    flower.style.setProperty("--y", y);
+
+    document.body.appendChild(flower);
+
+    setTimeout(() => flower.remove(), 1000);
+  }
+}
+</script>
 
 </body>
 </html>
